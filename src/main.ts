@@ -30,6 +30,36 @@ declare global {
   }
 }
 
+function runTowers() {
+  // Run Tower code here
+  const towers= _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER) as StructureTower[];
+
+  towers.forEach(tower => {
+    // Find the closest hostile unit
+    const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if (closestHostile) {
+      // Attack the closest hostile unit
+      tower.attack(closestHostile);
+    } else if (tower.store.getUsedCapacity(RESOURCE_ENERGY) > 850) {
+      // Check if energy is over 850 and if so, find the most damaged structure and repair
+      // Don't repair walls or roads, or you'll never stop repairing them
+      const targets = tower.room.find(FIND_STRUCTURES, {
+        filter: (structure) => structure.hits < structure.hitsMax
+          && structure.hits <= 150000
+          && structure.structureType !== STRUCTURE_ROAD
+          && structure.structureType !== STRUCTURE_WALL
+      });
+
+      if (targets.length > 0) {
+        // Sort the ramparts by hits in ascending order to find the most damaged one
+        targets.sort((a, b) => a.hits - b.hits);
+        // Repair the most damaged target
+        tower.repair(targets[0]);
+      }
+    }
+  });
+}
+
 function minCreeps(role: string, minCount: number, bodyConfig: BodyPartConstant[], spawnName: string, roomName: string) {
   const activeCreeps = _.filter(Game.creeps, (c) => c.memory.role === role && c.memory.room === roomName);
   if (_.size(activeCreeps) < minCount) {
@@ -38,7 +68,11 @@ function minCreeps(role: string, minCount: number, bodyConfig: BodyPartConstant[
 }
 export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
-  // If 'worker' does not exist, spawn it
+
+  // Structures
+  runTowers();
+
+  // Creeps
   minCreeps('nurse', 2, [CARRY, CARRY, MOVE, CARRY, MOVE, MOVE], 'E22N16_1', 'E22N16');
   minCreeps('repairer', 2, [WORK, CARRY, MOVE], 'E22N16_1', 'E22N16');
   minCreeps('courier', 1, [CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], 'E22N16_1', 'E22N16');
@@ -51,7 +85,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   let sources = Game.rooms['E22N16'].find(FIND_SOURCES);
   // Hauler per source
   sources.forEach(source => {
-    const haulersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === 'hauler' && creep.memory.targetId === source.id);
+    const haulersForSource = _.filter(Game.creeps, (creep) => (creep.memory.role === 'hauler' && creep.memory.targetId === source.id));
     if (haulersForSource.length < 1) {
       const newName = 'hauler_E22N16_' + Game.time;
       Game.spawns['E22N16_1'].spawnCreep([
