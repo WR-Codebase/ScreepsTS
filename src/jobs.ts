@@ -166,32 +166,32 @@ const jobs = {
           if (targetType === "DROPPED_RESOURCE") {
             // If range is null, use findClosestByPath for maximum flexibility
             target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {
-              filter: (r) => r.resourceType === RESOURCE_ENERGY
+              filter: (r: Resource) => (r.resourceType === RESOURCE_ENERGY)
             });
             if (target) break; // Exit loop if a target is found
           } else if (targetType === "TOMBSTONE") {
             target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {
-              filter: (t) => t.store[RESOURCE_ENERGY] > 0
+              filter: (t: Tombstone) => (t.store[RESOURCE_ENERGY] > 0)
             });
             if (target) break;
           } else if (targetType === "RUIN") {
             // Use the same logic as for tombstones and dropped resources
             target = creep.pos.findClosestByPath(FIND_RUINS, {
-              filter: (r) => r.store[RESOURCE_ENERGY] > 0
+              filter: (r: Ruin) => (r.store[RESOURCE_ENERGY] > 0)
             });
             if (target) break;
           } else if (targetType === "CONTAINER_STORAGE") {
             // Find the closest container or storage with energy
             target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-              filter: (s) => (s.structureType === STRUCTURE_CONTAINER
+              filter: (s: StructureContainer | StructureStorage) => ((s.structureType === STRUCTURE_CONTAINER
                   || s.structureType === STRUCTURE_STORAGE)
-                && s.store.getUsedCapacity(RESOURCE_ENERGY) > 0
+                && s.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
             });
 
           } else if (targetType === "CONTAINER") {
             // Find the closest container with energy
             target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-              filter: (s) => s.structureType === STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0
+              filter: (s: StructureContainer) => (s.structureType === STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0)
             });
             //console.log(`Container found ${targetType} ${target}`);
           } else if (targetType === "STORAGE") {
@@ -204,7 +204,7 @@ const jobs = {
           } else if (targetType === "LINK") {
             // Find the closest Link with energy
             target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-              filter: (s) => s.structureType === STRUCTURE_LINK && s.store[RESOURCE_ENERGY] > 0
+              filter: (s: StructureLink) => (s.structureType === STRUCTURE_LINK && s.store[RESOURCE_ENERGY] > 0)
             });
             if (target) break; // Exit loop if a target is found
           } else if (targetType === "SOURCE") {

@@ -5,6 +5,7 @@ import nurse from 'nurse';
 import harvester from 'harvester';
 import repairer from 'repairer';
 import courier from 'courier';
+import hauler from 'hauler';
 
 declare global {
   // Existing global declarations
@@ -38,16 +39,30 @@ function minCreeps(role: string, minCount: number, bodyConfig: BodyPartConstant[
 export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
   // If 'worker' does not exist, spawn it
-  minCreeps('nurse', 2, [CARRY, CARRY, MOVE, MOVE], 'E22N16_1', 'E22N16');
-  minCreeps('repairer', 1, [WORK, CARRY, MOVE], 'E22N16_1', 'E22N16');
-  minCreeps('courier', 3, [CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], 'E22N16_1', 'E22N16');
+  minCreeps('nurse', 2, [CARRY, CARRY, MOVE, CARRY, MOVE, MOVE], 'E22N16_1', 'E22N16');
+  minCreeps('repairer', 2, [WORK, CARRY, MOVE], 'E22N16_1', 'E22N16');
+  minCreeps('courier', 1, [CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], 'E22N16_1', 'E22N16');
   minCreeps('worker', 4, [
-    WORK, WORK, WORK,
-    CARRY, CARRY, CARRY,
-    MOVE, MOVE
+    WORK, WORK, WORK, WORK,
+    CARRY, CARRY, CARRY, CARRY,
+    MOVE, MOVE, MOVE, MOVE
   ], 'E22N16_1', 'E22N16');
 
   let sources = Game.rooms['E22N16'].find(FIND_SOURCES);
+  // Hauler per source
+  sources.forEach(source => {
+    const haulersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === 'hauler' && creep.memory.targetId === source.id);
+    if (haulersForSource.length < 1) {
+      const newName = 'hauler_E22N16_' + Game.time;
+      Game.spawns['E22N16_1'].spawnCreep([
+        CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+        MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE
+      ], newName, {
+        memory: { role: 'hauler', targetId: source.id, working: false, room: 'E22N16'}
+      });
+    }
+  });
+
   // Ensure one harvester per source
   sources.forEach(source => {
     const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === 'harvester' && creep.memory.targetId === source.id);
@@ -76,6 +91,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
       repairer.run(creep);
     } else if (creep.memory.role === 'courier') {
       courier.run(creep);
+    } else if (creep.memory.role === 'hauler') {
+      hauler.run(creep);
     }
   }
 
