@@ -8,6 +8,11 @@ declare global {
 }
 
 const harvester = {
+  template: {
+    pattern: [WORK],
+    prefix: [],
+    suffix: [MOVE]
+  },
   run: function (creep: Creep) {
     //console.log(`Running harvester ${creep.name}`);
     // Check if the creep has a source assigned in memory

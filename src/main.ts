@@ -1,14 +1,18 @@
 import { ErrorMapper } from "utils/ErrorMapper";
 
-import worker from 'worker';
-import nurse from 'nurse';
-import harvester from 'harvester';
-import repairer from 'repairer';
-import courier from 'courier';
-import hauler from 'hauler';
+import worker from "worker";
+import nurse from "nurse";
+import harvester from "harvester";
+import repairer from "repairer";
+import courier from "courier";
+import hauler from "hauler";
+import scout from "scout";
+import collective from "collective";
+import remoteDefender from "remoteDefender";
+import remoteHarvester from "remoteHarvester";
+import creepHandler from "creepHandler";
 
 declare global {
-  // Existing global declarations
   interface Memory {
     uuid: number;
     log: any;
@@ -21,6 +25,7 @@ declare global {
     status?: string;
     energyPriority?: string[];
     targetId?: string;
+    targetRoom?: string;
   }
 
   namespace NodeJS {
@@ -30,9 +35,13 @@ declare global {
   }
 }
 
+/**
+ * runTowers - Run the tower code for each tower in the room
+ * @returns {void}
+ */
 function runTowers() {
   // Run Tower code here
-  const towers= _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER) as StructureTower[];
+  const towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER) as StructureTower[];
 
   towers.forEach(tower => {
     // Find the closest hostile unit
@@ -60,76 +69,63 @@ function runTowers() {
   });
 }
 
-function minCreeps(role: string, minCount: number, bodyConfig: BodyPartConstant[], spawnName: string, roomName: string) {
-  const activeCreeps = _.filter(Game.creeps, (c) => c.memory.role === role && c.memory.room === roomName);
+function minCreeps(roleName: string, minCount: number, spawnName: string) {
+
+  const activeCreeps = _.filter(Game.creeps, (c) => c.memory.role === roleName && c.memory.room === Game.spawns[spawnName].room.name);
   if (_.size(activeCreeps) < minCount) {
-    Game.spawns[spawnName].spawnCreep(bodyConfig, `${role}_${roomName}_${Game.time}`, { memory: { role: role, room: roomName, working: false, status: '', energyPriority: []} });
+    creepHandler.spawn(spawnName, roleName);
   }
+  console.log(`CPU after minCreeps: ${Game.cpu.getUsed().toFixed(2)}`);
 }
+
 export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
 
   // Structures
   runTowers();
+  // Run Collective Consciousness
+  //collective.run();
 
-  // Creeps
-  minCreeps('nurse', 2, [CARRY, CARRY, MOVE, CARRY, MOVE, MOVE], 'E22N16_1', 'E22N16');
-  minCreeps('repairer', 2, [WORK, CARRY, MOVE], 'E22N16_1', 'E22N16');
-  minCreeps('courier', 1, [CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE, CARRY, MOVE], 'E22N16_1', 'E22N16');
-  minCreeps('worker', 4, [
-    WORK, WORK, WORK, WORK,
-    CARRY, CARRY, CARRY, CARRY,
-    MOVE, MOVE, MOVE, MOVE
-  ], 'E22N16_1', 'E22N16');
+  console.log(`CPU usage before spawning: ${Game.cpu.getUsed().toFixed(2)}`);
 
-  let sources = Game.rooms['E22N16'].find(FIND_SOURCES);
+  for (const spawnName in Game.spawns) {
+    if (Game.spawns[spawnName].spawning) continue; // Already spawning this tick
+    // @ts-ignore
+    creepHandler.spawn(spawnName);
+  }
+
+  let sources = Game.rooms["E53N17"].find(FIND_SOURCES);
   // Hauler per source
   sources.forEach(source => {
-    const haulersForSource = _.filter(Game.creeps, (creep) => (creep.memory.role === 'hauler' && creep.memory.targetId === source.id));
+    const haulersForSource = _.filter(Game.creeps, (creep) => (creep.memory.role === "hauler" && creep.memory.targetId === source.id));
     if (haulersForSource.length < 1) {
-      const newName = 'hauler_E22N16_' + Game.time;
-      Game.spawns['E22N16_1'].spawnCreep([
-        CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
-        MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE
+      const newName = "hauler_E53N17_" + Game.time;
+      Game.spawns["E53N17_1"].spawnCreep([
+        CARRY, CARRY, CARRY, CARRY, CARRY,
+        MOVE, MOVE, MOVE, MOVE, MOVE
       ], newName, {
-        memory: { role: 'hauler', targetId: source.id, working: false, room: 'E22N16'}
+        memory: { role: "hauler", targetId: source.id, working: false, room: "E53N17" }
       });
     }
   });
 
   // Ensure one harvester per source
   sources.forEach(source => {
-    const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === 'harvester' && creep.memory.targetId === source.id);
+    const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === "harvester" && creep.memory.targetId === source.id);
     if (harvestersForSource.length < 1) {
-      const newName = `harvester_E22N16_${Game.time}`;
-      Game.spawns['E22N16_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, MOVE], newName, {
+      const newName = `harvester_E53N17_${Game.time}`;
+      Game.spawns["E53N17_1"].spawnCreep([WORK, WORK, WORK, MOVE], newName, {
         memory: {
-          role: 'harvester',
+          role: "harvester",
           targetId: source.id as string,
-          room: 'E22N16',
+          room: "E53N17",
           working: false
         }
       });
     }
   });
 
-  for (const name in Game.creeps) {
-    const creep = Game.creeps[name];
-    if (creep.memory.role === 'worker') {
-      worker.run(creep);
-    } else if (creep.memory.role === 'nurse') {
-      nurse.run(creep);
-    } else if (creep.memory.role === 'harvester') {
-      harvester.run(creep);
-    } else if (creep.memory.role === 'repairer') {
-      repairer.run(creep);
-    } else if (creep.memory.role === 'courier') {
-      courier.run(creep);
-    } else if (creep.memory.role === 'hauler') {
-      hauler.run(creep);
-    }
-  }
-
+  creepHandler.run();
   // Log CPU and Memory usage
   console.log(`CPU: ${Game.cpu.getUsed().toFixed(2)}/20`);
 });

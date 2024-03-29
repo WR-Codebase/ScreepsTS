@@ -13,7 +13,7 @@ const jobs = {
         if (creep.store[RESOURCE_ENERGY] >= 50) {
           const target = creep.pos.findClosestByPath(towers) as AnyOwnedStructure;
           if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(target, { visualizePathStyle: { stroke: "#0af" }, ignoreCreeps: false });
+            creep.moveTo(target, { reusePath: 20, visualizePathStyle: { stroke: "#0af" }, ignoreCreeps: false });
           }
         } else {
           // If the creep has less than 50 energy, collect more
@@ -22,79 +22,66 @@ const jobs = {
       }
     },
     nourish: function(creep: Creep) {
-      //console.log(`${creep.name} is nourishing`);
+      console.log(`${creep.name} is nourishing ${creep.memory.targetId}`);
       // If the creep already has a target and that target is not yet full, do not get a new target
+
+      // First check if the creep has a target spawn or extension and it still needs energy
       if (creep.memory.targetId) {
-        //console.log(`${creep.name} has a target already, checking if it's full.`);
-        const target = Game.getObjectById(creep.memory.targetId) as AnyOwnedStructure;
-        if (!target) {
-          //console.log(`${creep.name} has lost its target`);
-          delete creep.memory.targetId;
-          return;
-        }
-
-        // If structure type is not a spawn or extension, delete the target
-        if (target.structureType !== STRUCTURE_SPAWN && target.structureType !== STRUCTURE_EXTENSION) {
-          delete creep.memory.targetId;
-          return;
-        }
-        // Check if the target still needs energy before attempting to transfer
-        if (target.store.getFreeCapacity(RESOURCE_ENERGY) === 0) { // throws an error if target doesn't have a store
-          // Target is already full, clear the current targetId and find a new target next tick
-          delete creep.memory.targetId;
-          //console.log(`${creep.name} found its target already full, looking for a new target.`);
-          return; // Exit the function to allow for new target selection in the next tick
-        }
-        //console.log(`${creep.name} attempting to transfer to ${target.structureType} at ${target.pos}, Energy: ${creep.store.getUsedCapacity(RESOURCE_ENERGY)}`);
-        if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { visualizePathStyle: { stroke: "#f96" }, ignoreCreeps: false });
-        } else if (creep.transfer(target, RESOURCE_ENERGY) === OK) {
-          //console.log(`${creep.name} transferred energy to ${target.structureType}`);
-        } else {
-          //console.log(`${creep.name} encountered an error while transferring energy to ${target.structureType}`);
-          delete creep.memory.targetId;
-          return;
-        }
-      } else {
-        // If the creep has no target or the target is full, find a new target
-        delete creep.memory.targetId;
-
-        //console.log(`${creep.name} is looking for a new target`);
-        // Needs to be able to filter out already targeted structures and sort the rest ascending by distance
-        const targets = creep.room.find(FIND_MY_STRUCTURES, {
-          filter: (structure) => {
-            return (structure.structureType === STRUCTURE_SPAWN
-                || structure.structureType === STRUCTURE_EXTENSION)
-              && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        console.log(`Target still valid, ${creep} is nourishing ${creep.memory.targetId}`);
+        const target = Game.getObjectById(creep.memory.targetId) as StructureSpawn | StructureExtension;
+        if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+          if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(target, { visualizePathStyle: { stroke: "#f77", lineStyle: "solid" }, ignoreCreeps: false });
           }
-        }).sort((a, b) => {
-          return creep.pos.getRangeTo(a) - creep.pos.getRangeTo(b);
-        });
-
-        if (targets.length > 0) {
-          creep.memory.targetId = targets[0].id;
-          //console.log(`${creep.name} found a new target: ${creep.memory.targetId}`);
-        } else {
-          //console.log(`${creep.name} found no new targets`);
           return;
         }
       }
 
+      // If we get here, we need a new target, starting with extensions that are not yet full
+      const extensions = creep.room.find(FIND_MY_STRUCTURES, {
+        filter: (structure) => {
+          return (structure.structureType === STRUCTURE_EXTENSION)
+            && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+      }) as StructureExtension[];
+
+      if (extensions.length > 0) {
+        // find the closest by path and fill it
+        extensions.sort((a, b) => a.pos.getRangeTo(creep) - b.pos.getRangeTo(creep));
+        creep.memory.targetId = extensions[0].id;
+      } else {
+        // Otherwise find the closest spawn that needs energy
+        const spawns = creep.room.find(FIND_MY_STRUCTURES, {
+          filter: (structure) => {
+            return (structure.structureType === STRUCTURE_SPAWN)
+              && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+          }
+        }) as StructureSpawn[];
+        if (spawns.length > 0) {
+          spawns.sort((a, b) => a.pos.getRangeTo(creep) - b.pos.getRangeTo(creep));
+          creep.memory.targetId = spawns[0].id;
+        }
+      }
+
+      console.log(`Checking ${creep.name} target: ${creep.memory.targetId}`);
       if (creep.memory.targetId) {
         const target = Game.getObjectById(creep.memory.targetId) as AnyOwnedStructure;
         if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { visualizePathStyle: { stroke: "#f96" }, ignoreCreeps: false });
+          creep.moveTo(target, { visualizePathStyle: { stroke: "#f77", lineStyle: "solid" }, ignoreCreeps: false });
         }
       }
     },
     getRepairTarget: function(creep: Creep) {
-      const targets = creep.room.find(FIND_STRUCTURES, { filter: object => object.hits < object.hitsMax });
+      // Find structures with less than 100,000 hits
+      const targets = creep.room.find(FIND_STRUCTURES, { filter: object => object.hits < object.hitsMax && object.hits <= 100000 });
+      // remove any already targeted for repair
       const untargetedTargets = targets.filter(target => {
-        return !_.some(Game.creeps, { memory: { target: target.id } });
+        return !_.some(Game.creeps, { reusePath: 20, memory: { role: 'repairer', targetId: target.id } });
       });
 
+      // Sort by percentage of health, lowest to highest
       if (untargetedTargets.length > 0) {
-        untargetedTargets.sort((a, b) => a.hits - b.hits);
+        untargetedTargets.sort((a, b) => a.hits / a.hitsMax - b.hits / b.hitsMax);
         creep.memory.targetId = untargetedTargets[0].id;
       }
     },
@@ -110,7 +97,7 @@ const jobs = {
       const targetToRepair = Game.getObjectById(creep.memory.targetId as string) as AnyOwnedStructure;
       if (targetToRepair) {
         if (creep.repair(targetToRepair) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(targetToRepair, { visualizePathStyle: { stroke: "#fa0" }, ignoreCreeps: false });
+          creep.moveTo(targetToRepair, { reusePath: 20, visualizePathStyle: { stroke: "#fa0", lineStyle: "dashed" }, ignoreCreeps: false });
         }
         // If target is full, unset target
         if (targetToRepair.hits === targetToRepair.hitsMax) {
@@ -129,7 +116,7 @@ const jobs = {
       }
       if (target) {
         if (creep.build(target) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { visualizePathStyle: { stroke: "#fa0" }, ignoreCreeps: false });
+          creep.moveTo(target, { reusePath: 10, visualizePathStyle: { stroke: "#fa0", lineStyle: "dotted" }, ignoreCreeps: false });
         }
       } else {
         creep.memory.status = "idle";
@@ -149,7 +136,7 @@ const jobs = {
       //console.log(`${creep.name} is collecting with priority ${priorityTargets}`);
       if (creep.memory.targetId) {
         // If a target is no longer valid, remove it from creep memory
-        const thisTarget = Game.getObjectById(creep.memory.targetId) as Tombstone | Ruin | StructureContainer | StructureStorage | StructureLink | Source | Resource
+        const thisTarget = Game.getObjectById(creep.memory.targetId) as Tombstone | Ruin | StructureContainer | StructureStorage | StructureLink | Source | Resource | StructureSpawn;
         if (thisTarget) {
           // @ts-ignore
           if (thisTarget.store && thisTarget.store[RESOURCE_ENERGY] === 0) {
@@ -195,6 +182,7 @@ const jobs = {
             });
             //console.log(`Container found ${targetType} ${target}`);
           } else if (targetType === "STORAGE") {
+            //console.log(`${creep.name} is looking for storage`);
             // Find the closest storage
             target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
               filter: (s) => (s.structureType === STRUCTURE_STORAGE)
@@ -211,6 +199,12 @@ const jobs = {
             // Finding the closest active source
             target = creep.pos.findClosestByPath(FIND_SOURCES);
             //console.log(`Found ${targetType} ${target}`);
+          } else if (targetType === "SPAWN") {
+            // Try drawing energy from spawns and putting it in extensions
+            const spawn = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_SPAWN } }) as StructureSpawn;
+            if (spawn && spawn.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
+              target = spawn;
+            }
           } else {
             //console.log(`Unknown target type: ${targetType}`);
           }
@@ -222,6 +216,7 @@ const jobs = {
           }
         }
       }
+      if (creep.memory.role === 'nurse') console.log(`${creep.name} is collecting from target: ${target}`);
 
       if (!target) {
         target = Game.getObjectById(creep.memory.targetId as string);
@@ -230,19 +225,20 @@ const jobs = {
 
       // Attempt to interact with the target based on its type
       if (target instanceof Resource && creep.pickup(target) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(target, { visualizePathStyle: { stroke: "#0fa" }, ignoreCreeps: false });
+        creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });
       } else if (target instanceof Source
         && creep.harvest(target) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(target, { visualizePathStyle: { stroke: "#0fa" }, ignoreCreeps: false });
+        creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });
       } else if ((target instanceof Tombstone
           || target instanceof Ruin
           || target instanceof StructureContainer
           || target instanceof StructureStorage
-          || target instanceof StructureLink)
+          || target instanceof StructureLink
+          || target instanceof StructureSpawn)
         && creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         //console.log(`${creep.name} found ${target}, moving to it now`);
 
-        creep.moveTo(target, { visualizePathStyle: { stroke: "#0fa" }, ignoreCreeps: false });
+        creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });
       }
     },
 
@@ -259,7 +255,7 @@ const jobs = {
 
       if (creep.memory.status === '⚡ Upgrade') {
         if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#fa0" }, ignoreCreeps: false });
+          creep.moveTo(creep.room.controller as StructureController, { reusePath: 20, visualizePathStyle: { stroke: "#fa0", lineStyle: "dotted" }, ignoreCreeps: false });
         }
       } else {
         this.collect(creep);

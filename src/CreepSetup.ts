@@ -8,6 +8,7 @@
 export interface BodyGeneratorReturn {
   body: BodyPartConstant[];
 }
+
 export interface BodySetup {
   /** body pattern to be repeated */
   pattern: BodyPartConstant[];
@@ -47,7 +48,7 @@ export class CreepSetup {
 
   constructor(
     roleName: string,
-    bodySetup: Partial<BodySetup> = {},
+    bodySetup: Partial<BodySetup> = {}
   ) {
     this.role = roleName;
     // Defaults for a creep setup
@@ -57,7 +58,7 @@ export class CreepSetup {
       prefix: [],
       suffix: [],
       proportionalPrefixSuffix: false,
-      ordered: true,
+      ordered: true
     });
     this.bodySetup = bodySetup as BodySetup;
     this.cache = {};
@@ -85,11 +86,11 @@ export class CreepSetup {
     const boosts: MineralBoostConstant[] = [];
 
     const result = {
-      body: body,
+      body: body
     };
     this.cache[thisRoom.name] = {
       result: result,
-      expiration: Game.time + 20,
+      expiration: Game.time + 20
     };
 
     return result;

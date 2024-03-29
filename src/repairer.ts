@@ -4,6 +4,12 @@ import jobs from 'jobs';
 const repairer = {
   status: '🔄 Collect',
 
+  template: {
+    pattern: [],
+    prefix: [WORK, CARRY],
+    suffix: [MOVE, MOVE]
+  },
+
   /** @param {Creep} creep **/
   run: function (creep: Creep) {
     if (typeof creep.memory.status === 'undefined') creep.memory.status = '🔄 Collect'; // Default to not repairing

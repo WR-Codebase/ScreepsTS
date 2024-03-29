@@ -2,7 +2,13 @@
  * The Hauler role is responsible for carrying energy from drop harvesters to storage or other structures.
  */
 const hauler = {
+  template: {
+    pattern: [CARRY, MOVE],
+    prefix: [],
+    suffix: []
+  },
   run: function (creep: Creep) {
+
     const oldStatus= creep.memory.status;
     // Ensure the creep has a valid state
     if (creep.store.getFreeCapacity() > 0 && creep.memory.status !== '🚚 Deliver') {

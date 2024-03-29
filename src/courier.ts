@@ -8,6 +8,11 @@ import jobs  from 'jobs';
 const courier = {
   // Default properties
   status: '🔄 Collect',
+  template: {
+    pattern: [CARRY, MOVE],
+    prefix: [],
+    suffix: []
+  },
 
   /** @param {Creep} creep **/
   run: function (creep: Creep) {
@@ -17,16 +22,17 @@ const courier = {
     if (creep.memory.status === undefined) creep.memory.status = '🔄 Collect'; // Default to collecting
 
     // Switch state between picking and delivering
-    if (creep.memory.status === '🔄 Collect' && creep.store.getFreeCapacity() === 0) {
+    if (creep.memory.status === '🔄 Collect' && creep.store.getUsedCapacity() > 0){
       creep.memory.status = '🚚 Delivering';
     }
     if (creep.memory.status === '🔄 Collect' && creep.store.getUsedCapacity() === 0) {
       creep.memory.status = '🔄 Collect';
     }
 
+    //console.log(`${creep.name} is ${creep.memory.status}`);
     if (creep.memory.status === '🔄 Collect') {
       // Set energy priority
-      creep.memory.energyPriority = ['TOMBSTONE', 'RUIN', 'DROPPED_RESOURCE', 'STORAGE'];
+      creep.memory.energyPriority = ['TOMBSTONE', 'RUIN', 'STORAGE', 'DROPPED_RESOURCE'];
       jobs.collect(creep);
 
       // If energy is full, switch to hauling
@@ -51,22 +57,13 @@ const courier = {
           if (creep.transfer(tower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.moveTo(tower, { visualizePathStyle: { stroke: '#0af' } });
           }
-        } else {
-          const storage = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-            filter: (s) => (s.structureType === STRUCTURE_STORAGE)
-              && s.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-          });
-          if (storage) {
-            if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-              creep.moveTo(storage, { visualizePathStyle: { stroke: '#0af' } });
-            }
-          }
         }
       }
 
       // If empty, switch to picking
       if (creep.store.getUsedCapacity() === 0) creep.memory.status = '🔄 Collect';
     }
+    //console.log(`${creep.name} is ${creep.memory.status}`);
     if (oldStatus !== creep.memory.status) {
       creep.say(creep.memory.status);
     }

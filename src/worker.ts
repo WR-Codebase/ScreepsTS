@@ -12,8 +12,11 @@ const worker = {
   role: 'worker',
   status: 'idle',
 
-  // Body parts for the creep are defined here
-  bodyTemplate: [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE],
+  template: {
+    pattern: [WORK, CARRY],
+    prefix: [],
+    suffix: [MOVE, MOVE]
+  },
 
   run: function (creep: Creep) {
     //console.log(`${creep.name} is ${this.status}`);
@@ -39,7 +42,7 @@ const worker = {
     } else if (creep.memory.status === '⚡ Upgrade') {
       jobs.upgrade(creep);
     } else {
-      creep.memory.energyPriority = ['CONTAINER_STORAGE', 'DROPPED_RESOURCE'];
+      creep.memory.energyPriority = ['CONTAINER_STORAGE', 'DROPPED_RESOURCE']; //
       jobs.collect(creep);
     }
 

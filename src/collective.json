@@ -1,0 +1,2277 @@
+{
+  "E22N16": {
+    "owner": "WoodenRobot",
+    "energy": 1300,
+    "energyCapacity": 1300,
+    "exits": [
+      {
+        "x": 8,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 9,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 10,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 11,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 12,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 13,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 14,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 15,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 16,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 17,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 18,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 19,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 20,
+        "y": 49,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 4,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 7,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 8,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 9,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 10,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 11,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 21,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 22,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 23,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 24,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 25,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 26,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 27,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 28,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 29,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 30,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 31,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 32,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 33,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 34,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 35,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 36,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 37,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 38,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 39,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 40,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 41,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 42,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 43,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 44,
+        "roomName": "E22N16"
+      },
+      {
+        "x": 0,
+        "y": 45,
+        "roomName": "E22N16"
+      }
+    ],
+    "sources": {
+      "5bbcae339099fc012e6388f1": {
+        "x": 21,
+        "y": 12
+      },
+      "5bbcae339099fc012e6388f3": {
+        "x": 22,
+        "y": 44
+      }
+    },
+    "mineral": {
+      "id": "5bbcb5bdd867df5e5420716c",
+      "type": "O",
+      "density": 3,
+      "amount": 70000,
+      "pos": {
+        "x": 39,
+        "y": 21,
+        "roomName": "E22N16"
+      }
+    },
+    "controller": {
+      "id": "5bbcae339099fc012e6388f2",
+      "owner": "WoodenRobot",
+      "level": 4,
+      "progress": 3455,
+      "progressTotal": 405000,
+      "downgradeTimer": 38371,
+      "safeModeAvailable": 3,
+      "powerEnabled": false,
+      "pos": {
+        "x": 38,
+        "y": 41,
+        "roomName": "E22N16"
+      }
+    }
+  },
+  "E21N16": {
+    "owner": "unowned",
+    "energy": 0,
+    "energyCapacity": 0,
+    "exits": [
+      {
+        "x": 14,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 15,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 16,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 17,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 18,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 31,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 32,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 33,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 34,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 35,
+        "y": 0,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 6,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 7,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 8,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 9,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 10,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 11,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 12,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 27,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 28,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 29,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 30,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 31,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 32,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 33,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 34,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 35,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 36,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 37,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 38,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 39,
+        "y": 49,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 2,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 3,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 4,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 5,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 6,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 7,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 8,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 9,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 10,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 11,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 21,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 22,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 23,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 24,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 25,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 26,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 27,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 28,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 29,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 30,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 31,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 32,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 33,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 34,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 35,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 36,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 37,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 38,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 39,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 40,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 41,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 42,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 43,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 44,
+        "roomName": "E21N16"
+      },
+      {
+        "x": 49,
+        "y": 45,
+        "roomName": "E21N16"
+      }
+    ],
+    "sources": {
+      "5bbcae259099fc012e63876c": {
+        "pos": {
+          "x": 7,
+          "y": 41,
+          "roomName": "E21N16"
+        }
+      }
+    },
+    "mineral": {
+      "id": "5bbcb38d40062e4259e944ca",
+      "type": "K",
+      "density": 3,
+      "amount": 70000,
+      "pos": {
+        "x": 29,
+        "y": 11,
+        "roomName": "E21N16"
+      }
+    },
+    "controller": {
+      "id": "5bbcae259099fc012e63876b",
+      "owner": "unowned",
+      "level": 0,
+      "progress": 0,
+      "progressTotal": 0,
+      "downgradeTimer": 0,
+      "safeModeAvailable": 0,
+      "powerEnabled": false,
+      "pos": {
+        "x": 6,
+        "y": 32,
+        "roomName": "E21N16"
+      }
+    }
+  },
+  "E21N15": {
+    "owner": "unowned",
+    "energy": 0,
+    "energyCapacity": 0,
+    "exits": [
+      {
+        "x": 6,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 9,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 11,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 12,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 27,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 28,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 29,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 30,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 31,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 32,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 33,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 34,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 35,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 36,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 37,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 38,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 39,
+        "y": 0,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 20,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 21,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 22,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 23,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 24,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 25,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 26,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 27,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 36,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 37,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 38,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 39,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 40,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 41,
+        "roomName": "E21N15"
+      },
+      {
+        "x": 49,
+        "y": 42,
+        "roomName": "E21N15"
+      }
+    ],
+    "sources": {
+      "5bbcae259099fc012e63876f": {
+        "pos": {
+          "x": 29,
+          "y": 17,
+          "roomName": "E21N15"
+        }
+      }
+    },
+    "mineral": {
+      "id": "5bbcb38d40062e4259e944cb",
+      "type": "L",
+      "density": 2,
+      "amount": 35000,
+      "pos": {
+        "x": 18,
+        "y": 19,
+        "roomName": "E21N15"
+      }
+    },
+    "controller": {
+      "id": "5bbcae259099fc012e63876e",
+      "owner": "unowned",
+      "level": 0,
+      "progress": 0,
+      "progressTotal": 0,
+      "downgradeTimer": 0,
+      "safeModeAvailable": 0,
+      "powerEnabled": false,
+      "pos": {
+        "x": 27,
+        "y": 9,
+        "roomName": "E21N15"
+      }
+    }
+  },
+  "E22N15": {
+    "owner": "unowned",
+    "energy": 0,
+    "energyCapacity": 0,
+    "exits": [
+      {
+        "x": 8,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 9,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 11,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 12,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 13,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 14,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 15,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 16,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 17,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 18,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 19,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 20,
+        "y": 0,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 6,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 7,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 8,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 9,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 10,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 11,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 12,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 13,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 14,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 15,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 16,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 17,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 18,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 19,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 20,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 21,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 22,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 23,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 24,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 25,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 41,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 42,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 43,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 44,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 45,
+        "y": 49,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 21,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 22,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 23,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 24,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 25,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 26,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 27,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 36,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 37,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 38,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 39,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 40,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 41,
+        "roomName": "E22N15"
+      },
+      {
+        "x": 0,
+        "y": 42,
+        "roomName": "E22N15"
+      }
+    ],
+    "sources": {
+      "5bbcae339099fc012e6388f5": {
+        "pos": {
+          "x": 21,
+          "y": 24,
+          "roomName": "E22N15"
+        }
+      }
+    },
+    "mineral": {
+      "id": "5bbcb5bed867df5e5420716d",
+      "type": "H",
+      "density": 3,
+      "amount": 70000,
+      "pos": {
+        "x": 8,
+        "y": 41,
+        "roomName": "E22N15"
+      }
+    },
+    "controller": {
+      "id": "5bbcae339099fc012e6388f6",
+      "owner": "unowned",
+      "level": 0,
+      "progress": 0,
+      "progressTotal": 0,
+      "downgradeTimer": 0,
+      "safeModeAvailable": 0,
+      "powerEnabled": false,
+      "pos": {
+        "x": 6,
+        "y": 30,
+        "roomName": "E22N15"
+      }
+    }
+  },
+  "E22N14": {
+    "owner": "unowned",
+    "energy": 0,
+    "energyCapacity": 0,
+    "exits": [
+      {
+        "x": 6,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 9,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 11,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 12,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 13,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 14,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 15,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 16,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 17,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 18,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 19,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 20,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 21,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 22,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 23,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 24,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 25,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 41,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 42,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 43,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 44,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 45,
+        "y": 0,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 15,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 16,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 17,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 18,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 19,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 20,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 33,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 34,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 35,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 36,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 37,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 38,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 39,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 40,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 41,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 49,
+        "y": 42,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 0,
+        "y": 19,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 0,
+        "y": 21,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 0,
+        "y": 22,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 0,
+        "y": 23,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 0,
+        "y": 24,
+        "roomName": "E22N14"
+      },
+      {
+        "x": 0,
+        "y": 25,
+        "roomName": "E22N14"
+      }
+    ],
+    "sources": {
+      "5bbcae339099fc012e6388f8": {
+        "pos": {
+          "x": 35,
+          "y": 7,
+          "roomName": "E22N14"
+        }
+      },
+      "5bbcae339099fc012e6388f9": {
+        "pos": {
+          "x": 38,
+          "y": 26,
+          "roomName": "E22N14"
+        }
+      }
+    },
+    "mineral": {
+      "id": "5bbcb5bed867df5e5420716e",
+      "type": "K",
+      "density": 2,
+      "amount": 35000,
+      "pos": {
+        "x": 45,
+        "y": 21,
+        "roomName": "E22N14"
+      }
+    },
+    "controller": {
+      "id": "5bbcae339099fc012e6388fa",
+      "owner": "unowned",
+      "level": 0,
+      "progress": 0,
+      "progressTotal": 0,
+      "downgradeTimer": 0,
+      "safeModeAvailable": 0,
+      "powerEnabled": false,
+      "pos": {
+        "x": 17,
+        "y": 41,
+        "roomName": "E22N14"
+      }
+    }
+  },
+  "E23N14": {
+    "owner": "unowned",
+    "energy": 0,
+    "energyCapacity": 0,
+    "exits": [
+      {
+        "x": 38,
+        "y": 49,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 39,
+        "y": 49,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 40,
+        "y": 49,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 41,
+        "y": 49,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 42,
+        "y": 49,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 43,
+        "y": 49,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 44,
+        "y": 49,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 3,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 4,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 5,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 6,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 7,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 8,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 9,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 10,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 11,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 12,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 13,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 20,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 21,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 22,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 23,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 24,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 25,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 26,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 27,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 28,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 29,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 30,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 39,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 40,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 41,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 42,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 49,
+        "y": 43,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 15,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 16,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 17,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 18,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 19,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 33,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 34,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 35,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 36,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 37,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 38,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 39,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 40,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 41,
+        "roomName": "E23N14"
+      },
+      {
+        "x": 0,
+        "y": 42,
+        "roomName": "E23N14"
+      }
+    ],
+    "sources": {
+      "5bbcae419099fc012e638a7c": {
+        "pos": {
+          "x": 28,
+          "y": 7,
+          "roomName": "E23N14"
+        }
+      }
+    },
+    "mineral": {
+      "id": "5bbcb5c9d867df5e542071da",
+      "type": "L",
+      "density": 2,
+      "amount": 35000,
+      "pos": {
+        "x": 19,
+        "y": 13,
+        "roomName": "E23N14"
+      }
+    },
+    "controller": {
+      "id": "5bbcae419099fc012e638a7d",
+      "owner": "unowned",
+      "level": 0,
+      "progress": 0,
+      "progressTotal": 0,
+      "downgradeTimer": 0,
+      "safeModeAvailable": 0,
+      "powerEnabled": false,
+      "pos": {
+        "x": 5,
+        "y": 26,
+        "roomName": "E23N14"
+      }
+    }
+  },
+  "E24N14": {
+    "owner": "unowned",
+    "energy": 0,
+    "energyCapacity": 0,
+    "exits": [
+      {
+        "x": 6,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 9,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 11,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 22,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 23,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 24,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 25,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 26,
+        "y": 0,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 2,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 3,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 4,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 5,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 6,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 7,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 8,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 9,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 10,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 11,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 12,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 13,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 14,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 15,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 16,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 17,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 18,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 19,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 20,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 21,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 22,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 23,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 24,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 25,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 26,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 27,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 28,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 29,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 30,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 31,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 32,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 33,
+        "y": 49,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 11,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 12,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 13,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 14,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 15,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 16,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 17,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 18,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 19,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 20,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 21,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 22,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 23,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 24,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 25,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 26,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 27,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 28,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 29,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 30,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 31,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 32,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 33,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 49,
+        "y": 34,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 4,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 7,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 8,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 9,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 10,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 11,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 12,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 13,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 21,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 22,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 23,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 24,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 25,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 26,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 27,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 28,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 29,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 30,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 39,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 40,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 41,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 42,
+        "roomName": "E24N14"
+      },
+      {
+        "x": 0,
+        "y": 43,
+        "roomName": "E24N14"
+      }
+    ],
+    "sources": {
+      "5bbcae539099fc012e638c52": {
+        "pos": {
+          "x": 5,
+          "y": 14,
+          "roomName": "E24N14"
+        }
+      },
+      "5bbcae539099fc012e638c54": {
+        "pos": {
+          "x": 33,
+          "y": 32,
+          "roomName": "E24N14"
+        }
+      },
+      "5bbcae539099fc012e638c57": {
+        "pos": {
+          "x": 13,
+          "y": 41,
+          "roomName": "E24N14"
+        }
+      }
+    },
+    "mineral": {
+      "id": "5bbcb7bc1e7d3f3cbe250a4f",
+      "type": "U",
+      "density": 3,
+      "amount": 70000,
+      "pos": {
+        "x": 32,
+        "y": 10,
+        "roomName": "E24N14"
+      }
+    },
+    "controller": {
+      "id": "",
+      "owner": "unowned",
+      "level": 0,
+      "progress": 0,
+      "progressTotal": 0,
+      "downgradeTimer": 0,
+      "safeModeAvailable": 0
+    }
+  }
+}

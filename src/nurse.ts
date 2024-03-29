@@ -11,6 +11,11 @@ declare global {
  * @type {{run: roleNurse.run}}
  */
 const nurse = {
+  template: {
+    pattern: [],
+    prefix: [],
+    suffix: [CARRY, MOVE, CARRY, MOVE]
+  },
   run: function (creep: Creep) {
     if (typeof creep.memory.status === 'undefined') creep.memory.status = '🔄 Collect'; // Default to not nursing
     const oldStatus = creep.memory.status;
@@ -28,7 +33,7 @@ const nurse = {
     if (creep.memory.status === '🍼 Nurse') {
       jobs.nourish(creep);
     } else {
-      creep.memory.energyPriority = ['CONTAINER_STORAGE', 'DROPPED_RESOURCE'];
+      creep.memory.energyPriority = ['CONTAINER_STORAGE', 'DROPPED_RESOURCE', 'RUIN',  'TOMBSTONE'];
       jobs.collect(creep);
     }
 
