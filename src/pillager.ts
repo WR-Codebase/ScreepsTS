@@ -72,7 +72,7 @@ export default {
       }) as StructureContainer | StructureStorage;
       if (storage) {
         if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(storage, { reusePath: 20, visualizePathStyle: { stroke: "#0af", lineStyle: "dotted" }, ignoreCreeps: true  });
+          creep.moveTo(storage, { reusePath: 20, visualizePathStyle: { stroke: "#0af", lineStyle: "dotted" }, ignoreCreeps: false  });
         }
       } else {
         // deliver to nearest container with capacity
@@ -83,7 +83,7 @@ export default {
         }) as StructureContainer;
         if (container) {
           if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(container, { reusePath: 20, visualizePathStyle: { stroke: "#0af", lineStyle: "dotted" }, ignoreCreeps: true  });
+            creep.moveTo(container, { reusePath: 20, visualizePathStyle: { stroke: "#0af", lineStyle: "dotted" }, ignoreCreeps: false  });
           }
         }
       }
