@@ -8,16 +8,48 @@ export default {
   },
   pillage: function(creep: Creep) {
     if (creep.room.name === "E52N17") {
-      // Find the closest by path
-      const ruin = creep.pos.findClosestByPath(FIND_RUINS, { filter: (r) => r.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
-      const tombstone = creep.pos.findClosestByPath(FIND_TOMBSTONES, { filter: (t) => t.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
-      if (ruin) {
-        if (creep.withdraw(ruin, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(ruin, { reusePath: 20, visualizePathStyle: { stroke: "#af0" }, ignoreCreeps: true  });
+      // If creep already has a target Id, find out if it's still got resources
+      if (creep.memory.targetId) {
+        const target = Game.getObjectById(creep.memory.targetId) as Ruin | Tombstone | Resource;
+        if (target instanceof Resource && creep.pickup(target) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });
+        } else if (target instanceof Source
+          && creep.harvest(target) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });
+        } else if ((target instanceof Tombstone
+            || target instanceof Ruin
+            || target instanceof StructureContainer
+            || target instanceof StructureStorage
+            || target instanceof StructureLink
+            || target instanceof StructureSpawn)
+          && creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          //console.log(`${creep.name} found ${target}, moving to it now`);
+
+          creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });
+        } else {
+          //console.log(`${creep.name} found ${target}, but it's empty`);
+          delete creep.memory.targetId;
         }
-      } else if (tombstone) {
-        if (creep.withdraw(tombstone, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(tombstone, { reusePath: 20, visualizePathStyle: { stroke: "#af0" }, ignoreCreeps: true  });
+      } else {
+        // Find the closest by path
+        const ruin = creep.pos.findClosestByPath(FIND_RUINS, { filter: (r) => r.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
+        const tombstone = creep.pos.findClosestByPath(FIND_TOMBSTONES, { filter: (t) => t.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
+        const droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, { filter: (r) => r.resourceType === RESOURCE_ENERGY });
+        if (tombstone) {
+          if (creep.withdraw(tombstone, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(tombstone, { reusePath: 20, visualizePathStyle: { stroke: "#af0" }, ignoreCreeps: true });
+          }
+          creep.memory.targetId = tombstone.id;
+        } else if (droppedEnergy) {
+          if (creep.pickup(droppedEnergy) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(droppedEnergy, { reusePath: 20, visualizePathStyle: { stroke: "#af0" }, ignoreCreeps: true });
+          }
+          creep.memory.targetId = droppedEnergy.id;
+        } else if (ruin) {
+          if (creep.withdraw(ruin, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(ruin, { reusePath: 20, visualizePathStyle: { stroke: "#af0" }, ignoreCreeps: true });
+          }
+          creep.memory.targetId = ruin.id;
         }
       }
     } else {
@@ -32,15 +64,27 @@ export default {
   },
   deliver: function(creep: Creep) {
     if (creep.room.name === "E53N17") {
-      // Transfer to nearest container or storage with capacity
-      const target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      // Transfer to nearest storage with capacity or if there is no storage, transfer to nearest container
+      const storage = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (structure) => {
           return (structure.structureType === STRUCTURE_CONTAINER || structure.structureType === STRUCTURE_STORAGE) && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
         }
       }) as StructureContainer | StructureStorage;
-      if (target) {
-        if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { reusePath: 20, visualizePathStyle: { stroke: "#0af", lineStyle: "dotted" }, ignoreCreeps: true  });
+      if (storage) {
+        if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(storage, { reusePath: 20, visualizePathStyle: { stroke: "#0af", lineStyle: "dotted" }, ignoreCreeps: true  });
+        }
+      } else {
+        // deliver to nearest container with capacity
+        const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: (structure) => {
+            return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+          }
+        }) as StructureContainer;
+        if (container) {
+          if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(container, { reusePath: 20, visualizePathStyle: { stroke: "#0af", lineStyle: "dotted" }, ignoreCreeps: true  });
+          }
         }
       }
     } else {

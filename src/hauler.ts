@@ -22,7 +22,16 @@ const hauler = {
     if (creep.memory.status === '🔄 Collect') {
       this.collectEnergy(creep);
     } else {
-      this.deliverEnergy(creep);
+      if (creep.room.name !== 'E53N17') {
+        // Move to the exit
+        const exitDir = creep.room.findExitTo('E53N17');
+        const exit = creep.pos.findClosestByPath(exitDir as ExitConstant);
+        if (exit) {
+          creep.moveTo(exit, { visualizePathStyle: { stroke: '#f0f', lineStyle: 'dashed' }, ignoreCreeps: true });
+        }
+      } else {
+        this.deliverEnergy(creep);
+      }
     }
 
     if (oldStatus !== creep.memory.status) {

@@ -14,7 +14,7 @@ const nurse = {
   template: {
     pattern: [],
     prefix: [],
-    suffix: [CARRY, MOVE, CARRY, MOVE]
+    suffix: [CARRY, MOVE, CARRY, MOVE, CARRY, MOVE]
   },
   run: function (creep: Creep) {
     if (typeof creep.memory.status === 'undefined') creep.memory.status = '🔄 Collect'; // Default to not nursing

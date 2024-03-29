@@ -124,29 +124,32 @@ const jobs = {
     },
     collect: function(creep: Creep) {
       let target;
+
+      // If creep is full, stop collecting.
       if (creep.store.getFreeCapacity(RESOURCE_ENERGY) === 0) {
         delete creep.memory.status;
         delete creep.memory.targetId;
         return;
       }
-      //console.log(`Checking ${creep.name}'s energy priority list: ${(creep.memory.energyPriority)}`);
+
       // Use the creep's personal priority list if available, otherwise default
       const priorityTargets = (creep.memory.energyPriority)? creep.memory.energyPriority : ["TOMBSTONE", "RUIN", "CONTAINER_STORAGE", "DROPPED_RESOURCE", "SOURCE"];
 
-      //console.log(`${creep.name} is collecting with priority ${priorityTargets}`);
+      // If the creep has a target in memory, check if it is still valid
       if (creep.memory.targetId) {
         // If a target is no longer valid, remove it from creep memory
         const thisTarget = Game.getObjectById(creep.memory.targetId) as Tombstone | Ruin | StructureContainer | StructureStorage | StructureLink | Source | Resource | StructureSpawn;
         if (thisTarget) {
           // @ts-ignore
           if (thisTarget.store && thisTarget.store[RESOURCE_ENERGY] === 0) {
-            //console.log(`${creep.name}'s target ${creep.memory.targetId} is empty.`);
+            // If target in memory is empty, remove it
             delete creep.memory.targetId;
           }
         }
       }
+      if (creep.memory.role === 'pillager') console.log(`150: ${creep.name} is collecting from ${target}, memory ID: ${creep.memory.targetId}`);
 
-      // Now that we have unset invalid targets, if it is not set, get a new target
+      // Now that we have unset invalid targets, If we don't have a target, get a new one
       if (!creep.memory.targetId) {
         //console.log(`${creep.name} is looking for a new target`);
         for (const targetType of priorityTargets) {
@@ -215,14 +218,13 @@ const jobs = {
             break; // Exit loop if a target is found
           }
         }
+        if (creep.memory.role === 'pillager') console.log(`221: ${creep.name} is collecting from ${target}, memory ID: ${creep.memory.targetId}`);
+
       }
-      if (creep.memory.role === 'nurse') console.log(`${creep.name} is collecting from target: ${target}`);
 
       if (!target) {
         target = Game.getObjectById(creep.memory.targetId as string);
       }
-      //console.log(`${creep.name} is collecting from ${target}`);
-
       // Attempt to interact with the target based on its type
       if (target instanceof Resource && creep.pickup(target) === ERR_NOT_IN_RANGE) {
         creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });

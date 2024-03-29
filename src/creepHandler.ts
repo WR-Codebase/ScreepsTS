@@ -6,6 +6,7 @@ import repairer from "repairer";
 import scout from "scout";
 import worker from "worker";
 import pillager from "pillager";
+import drone from "drone";
 
 const creepHandler = {
   roles: {
@@ -16,7 +17,8 @@ const creepHandler = {
     "repairer": repairer,
     "scout": scout,
     "worker": worker,
-    "pillager": pillager
+    "pillager": pillager,
+    "drone": drone
   },
   costs: {
     work: 100,
@@ -31,11 +33,11 @@ const creepHandler = {
   spawn: function(spawnName: string, roleName: string) {
     // Minimums
     const minimums = {
-      nurse: 2,
-      worker: 4,
+      nurse: 3,
+      worker: 3,
       courier: 1,
-      repairer: 1,
-      pillager: 4
+      repairer: 2,
+      pillager: 6
     }
     const roleCount = {
       nurse: 0,
@@ -135,22 +137,15 @@ const creepHandler = {
         return;
       }
       const creep = Game.creeps[name];
-      if (creep.memory.role === "worker") {
-        worker.run(creep);
-      } else if (creep.memory.role === "nurse") {
-        nurse.run(creep);
-      } else if (creep.memory.role === "harvester") {
-        harvester.run(creep);
-      } else if (creep.memory.role === "repairer") {
-        repairer.run(creep);
-      } else if (creep.memory.role === "courier") {
-        courier.run(creep);
-      } else if (creep.memory.role === "hauler") {
-        hauler.run(creep);
-      } else if (creep.memory.role === "scout") {
-        scout.run(creep);
-      } else if (creep.memory.role === "pillager") {
-        pillager.run(creep);
+      for (const roleName in this.roles) {
+        if (creep.memory.role === roleName) {
+          if (Game.cpu.getUsed() > 19) {
+            console.log(`CPU used: ${Game.cpu.getUsed()}`);
+            return;
+          }
+          // @ts-ignore
+          this.roles[roleName].run(creep);
+        }
       }
     }
   }

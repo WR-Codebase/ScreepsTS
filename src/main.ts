@@ -94,37 +94,38 @@ export const loop = ErrorMapper.wrapLoop(() => {
     creepHandler.spawn(spawnName);
   }
 
-  let sources = Game.rooms["E53N17"].find(FIND_SOURCES);
-  // Hauler per source
-  sources.forEach(source => {
-    const haulersForSource = _.filter(Game.creeps, (creep) => (creep.memory.role === "hauler" && creep.memory.targetId === source.id));
-    if (haulersForSource.length < 1) {
-      const newName = "hauler_E53N17_" + Game.time;
-      Game.spawns["E53N17_1"].spawnCreep([
-        CARRY, CARRY, CARRY, CARRY, CARRY,
-        MOVE, MOVE, MOVE, MOVE, MOVE
-      ], newName, {
-        memory: { role: "hauler", targetId: source.id, working: false, room: "E53N17" }
-      });
-    }
-  });
+  for (const room in Game.rooms) {
+    let sources = Game.rooms[room].find(FIND_SOURCES);
+    // Hauler per source
+    sources.forEach(source => {
+      const haulersForSource = _.filter(Game.creeps, (creep) => (creep.memory.role === "hauler" && creep.memory.targetId === source.id));
+      if (haulersForSource.length < 1) {
+        const newName = `hauler_${room}_${Game.time}`;
+        Game.spawns["E53N17_1"].spawnCreep([
+          CARRY, CARRY, CARRY, CARRY, CARRY,
+          MOVE, MOVE, MOVE, MOVE, MOVE
+        ], newName, {
+          memory: { role: "hauler", targetId: source.id, working: false, room: room }
+        });
+      }
+    });
 
-  // Ensure one harvester per source
-  sources.forEach(source => {
-    const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === "harvester" && creep.memory.targetId === source.id);
-    if (harvestersForSource.length < 1) {
-      const newName = `harvester_E53N17_${Game.time}`;
-      Game.spawns["E53N17_1"].spawnCreep([WORK, WORK, WORK, MOVE], newName, {
-        memory: {
-          role: "harvester",
-          targetId: source.id as string,
-          room: "E53N17",
-          working: false
-        }
-      });
-    }
-  });
-
+    // Ensure one harvester per source
+    sources.forEach(source => {
+      const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === "harvester" && creep.memory.targetId === source.id);
+      if (harvestersForSource.length < 1) {
+        const newName = `harvester_${room}_${Game.time}`;
+        Game.spawns["E53N17_1"].spawnCreep([WORK, WORK, WORK, WORK, WORK, MOVE], newName, {
+          memory: {
+            role: "harvester",
+            targetId: source.id as string,
+            room: room,
+            working: false
+          }
+        });
+      }
+    });
+  }
   creepHandler.run();
   // Log CPU and Memory usage
   console.log(`CPU: ${Game.cpu.getUsed().toFixed(2)}/20`);
