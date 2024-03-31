@@ -10,7 +10,7 @@ declare global {
 const harvester = {
   template: {
     pattern: [WORK],
-    prefix: [],
+    prefix: [CARRY],
     suffix: [MOVE]
   },
   run: function (creep: Creep) {
@@ -30,6 +30,11 @@ const harvester = {
       }
     }
 
+    if (creep.room.name !== creep.memory.room) {
+      const targetRoom = creep.memory.room;
+      const targetPosition = new RoomPosition(25, 25, targetRoom);
+      creep.moveTo(targetPosition, { visualizePathStyle: { stroke: '#f0f', lineStyle: "dashed" } })
+    }
     // Proceed to harvest from the assigned source
     const source = Game.getObjectById(creep.memory.targetId as string) as Source;
     if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
@@ -38,13 +43,16 @@ const harvester = {
 
     // If the creep is full, attempt to transfer energy to a link
     if (creep.store.getFreeCapacity() === 0) {
+      //console.log(`Harvester ${creep.name} is full, checking for links`);
       const link = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {
         filter: { structureType: STRUCTURE_LINK }
       })[0]; // Take the first link found, if any
 
       if (link) {
+        //console.log(`Harvester ${creep.name} found link at ${link.pos}`);
         // Attempt to transfer energy to the link
         const transferResult = creep.transfer(link, RESOURCE_ENERGY);
+        //console.log(`Harvester ${creep.name} transfer result: ${transferResult}`);
         if (transferResult === OK) {
           //console.log(`Harvester ${creep.name} transferred energy to link at ${link.pos}`);
         } else if (transferResult === ERR_NOT_IN_RANGE) {

@@ -8,7 +8,7 @@ declare global {
 }
 /**
  * The Nurse role nourishes larval creeps by filling the extensions and spawns with energy.
- * @type {{run: roleNurse.run}}
+ * @type {{run: nurse.run}}
  */
 const nurse = {
   template: {

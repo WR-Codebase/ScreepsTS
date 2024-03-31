@@ -1,11 +1,16 @@
 
 const remoteDefender = {
+  template: {
+    pattern: [MOVE,RANGED_ATTACK],
+    prefix: [],
+    suffix: []
+  },
 
   /** @param {Creep} creep **/
   run: function (creep: Creep) {
     //console.log(`Running remoteDefender ${creep.name}`);
     // Target room to defend
-    creep.memory.targetRoom = 'E22N15';
+    creep.memory.targetRoom = 'E52N17';
     const targetRoom = creep.memory.targetRoom;
 
     // If not in the target room, move to it

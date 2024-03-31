@@ -58,7 +58,7 @@ export default {
       if (exit) {
         creep.moveTo(exit, { reusePath: 10, visualizePathStyle: { stroke: "#f0f", lineStyle: "dotted" }, ignoreCreeps: false });
       } else {
-        console.log(`Pillager ${creep.name} cannot find path to room E52N17.`);
+        //console.log(`Pillager ${creep.name} cannot find path to room E52N17.`);
       }
     }
   },
@@ -93,7 +93,7 @@ export default {
       if (exit) {
         creep.moveTo(exit, { reusePath: 20, visualizePathStyle: { stroke: "#f0f" }, ignoreCreeps: true  });
       } else {
-        console.log(`Pillager ${creep.name} cannot find path to room E53N17.`);
+        //console.log(`Pillager ${creep.name} cannot find path to room E53N17.`);
       }
     }
   },

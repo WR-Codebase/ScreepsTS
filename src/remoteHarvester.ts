@@ -11,10 +11,8 @@ const remoteHarvester = {
 
     // State 1: Creep is in target room and has full energy => return to home room and deposit energy
     if (targetRoom === creep.room.name && creep.store.getFreeCapacity() === 0) {
-      console.log(`${creep.name} is in ${targetRoom} and has full energy. Returning to home room.`);
       creep.moveTo(Game.spawns['E22N16_1'].pos, { visualizePathStyle: { stroke: '#0f0' } });
     } else if (targetRoom === creep.room.name && creep.store.getFreeCapacity() > 0) {
-      console.log(`${creep.name} is in ${targetRoom} and does not have full energy. Harvesting source: ${creep.memory.targetId}.`);
       // State 2: Creep is in target room and does not have full energy => harvest creep.memory.targetId
       const source = Game.getObjectById(targetId) as Source;
       if (!source) {
@@ -24,10 +22,8 @@ const remoteHarvester = {
       }
 
       if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
-        console.log(`${creep.name} is moving to ${source}.`);
-
-          // Proceed with moving to source
-          creep.moveTo(source.pos, { visualizePathStyle: { stroke: '#0f0' } });
+        // Proceed with moving to source
+        creep.moveTo(source.pos, { visualizePathStyle: { stroke: '#0f0' } });
       }
     } else if (creep.memory.room === creep.room.name && creep.store.getUsedCapacity() > 0) {
       // State 3: Creep is in home room and is not empty => deposit energy at nearest container or storage

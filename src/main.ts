@@ -1,17 +1,8 @@
 import { ErrorMapper } from "utils/ErrorMapper";
-
-import worker from "worker";
-import nurse from "nurse";
-import harvester from "harvester";
-import repairer from "repairer";
-import courier from "courier";
-import hauler from "hauler";
-import scout from "scout";
-import collective from "collective";
-import remoteDefender from "remoteDefender";
-import remoteHarvester from "remoteHarvester";
 import creepHandler from "creepHandler";
+import { Traveler } from "Traveler";
 
+// Global memory interfaces
 declare global {
   interface Memory {
     uuid: number;
@@ -34,6 +25,60 @@ declare global {
     }
   }
 }
+
+/**
+ * purgeMemory - removes no-longer-used memory entries
+ * @returns {void}
+ */
+function purgeMemory() {
+  // tidy up dead creeps
+  for (const name in Memory.creeps) {
+    if (!Game.creeps[name]) {
+      delete Memory.creeps[name];
+    }
+  }
+}
+
+/**
+ * Handles the energy transfer between links in a room
+ * @returns {void}
+ */
+function runLinks(){
+  // Iterate over all rooms controlled by your AI
+  for (const roomName in Game.rooms) {
+    const room = Game.rooms[roomName];
+    console.log(`Checking room ${roomName} for links`);
+
+    // Continue only if the room has a storage and controller owned by you
+    if (room.storage && room.controller?.my) {
+      // Find all links in the room
+      const links = room.find(FIND_MY_STRUCTURES, {
+        filter: { structureType: STRUCTURE_LINK }
+      });
+
+      if (links.length > 1) {
+        // Determine the link closest to the storage to set it as the target link
+        const targetLink = room.storage.pos.findClosestByRange(links) as StructureLink;
+
+        // Filter out the target link to get a list of source links
+        const sourceLinks = links.filter(link => link.id !== targetLink.id) as StructureLink[]
+
+        // Ensure the target link and source links are not in cooldown and have enough energy
+        sourceLinks.forEach(sourceLink => {
+          if (sourceLink.cooldown === 0 && targetLink.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+            // Attempt to transfer as much energy as possible to the target link
+            sourceLink.transferEnergy(targetLink);
+          }
+        });
+      } else if (links.length === 1) {
+        console.log(`Room ${roomName} has only one link, which serves as both source and target.`);
+      } else {
+        console.log(`Room ${roomName} does not have any links.`);
+      }
+    }
+  }
+}
+
 
 /**
  * runTowers - Run the tower code for each tower in the room
@@ -69,64 +114,99 @@ function runTowers() {
   });
 }
 
-function minCreeps(roleName: string, minCount: number, spawnName: string) {
-
-  const activeCreeps = _.filter(Game.creeps, (c) => c.memory.role === roleName && c.memory.room === Game.spawns[spawnName].room.name);
-  if (_.size(activeCreeps) < minCount) {
-    creepHandler.spawn(spawnName, roleName);
-  }
-  console.log(`CPU after minCreeps: ${Game.cpu.getUsed().toFixed(2)}`);
-}
-
+// Main game loop
 export const loop = ErrorMapper.wrapLoop(() => {
+
+  console.log(`CPU usage before loop: ${Game.cpu.getUsed().toFixed(2)}`);
+
+  if (typeof Memory.collective === 'undefined') {
+    Memory.collective = {
+      time: {
+        tick: Game.time,
+        five: Game.time + 5,
+        ten: Game.time + 10,
+        hundred: Game.time + 100
+      }
+    };
+  }
   console.log(`Current game tick is ${Game.time}`);
 
-  // Structures
-  runTowers();
-  // Run Collective Consciousness
-  //collective.run();
+  console.log(`CPU Usage at checkpoint: ${Game.cpu.getUsed().toFixed(2)}`);
 
-  console.log(`CPU usage before spawning: ${Game.cpu.getUsed().toFixed(2)}`);
+  if (Game.time >= Memory.collective.time.hundred) {
+    console.log(`100 tick code`);
+    // Run the 100 tick code
 
-  for (const spawnName in Game.spawns) {
-    if (Game.spawns[spawnName].spawning) continue; // Already spawning this tick
-    // @ts-ignore
-    creepHandler.spawn(spawnName);
+    // Run Collective Consciousness AKA Raw Memory <=> Memory.collective sync
+    //collective.run();
+
+    // Increment the next hundred
+    Memory.collective.time.hundred = Game.time + 100;
   }
 
-  for (const room in Game.rooms) {
-    let sources = Game.rooms[room].find(FIND_SOURCES);
-    // Hauler per source
-    sources.forEach(source => {
-      const haulersForSource = _.filter(Game.creeps, (creep) => (creep.memory.role === "hauler" && creep.memory.targetId === source.id));
-      if (haulersForSource.length < 1) {
-        const newName = `hauler_${room}_${Game.time}`;
-        Game.spawns["E53N17_1"].spawnCreep([
-          CARRY, CARRY, CARRY, CARRY, CARRY,
-          MOVE, MOVE, MOVE, MOVE, MOVE
-        ], newName, {
-          memory: { role: "hauler", targetId: source.id, working: false, room: room }
-        });
-      }
-    });
+  if (Game.time >= Memory.collective.time.ten) {
+    console.log(`10 tick code`);
 
-    // Ensure one harvester per source
-    sources.forEach(source => {
-      const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === "harvester" && creep.memory.targetId === source.id);
-      if (harvestersForSource.length < 1) {
-        const newName = `harvester_${room}_${Game.time}`;
-        Game.spawns["E53N17_1"].spawnCreep([WORK, WORK, WORK, WORK, WORK, MOVE], newName, {
-          memory: {
-            role: "harvester",
-            targetId: source.id as string,
-            room: room,
-            working: false
+
+    console.log(`CPU usage before spawning: ${Game.cpu.getUsed().toFixed(2)}`);
+    let cpuStat = Game.cpu.getUsed();
+    for (const spawnName in Game.spawns) {
+      if (Game.spawns[spawnName].spawning) continue; // Already spawning this tick
+      // @ts-ignore
+      creepHandler.spawn(spawnName);
+    }
+
+    const roomsAllowedToHarvest = ['E52N17', 'E53N17', 'E53N18'];
+    for (const room of roomsAllowedToHarvest) {
+      try {
+        console.log(`Checking room ${room}`);
+        let sources = Game.rooms[room].find(FIND_SOURCES);
+        // Ensure one harvester per source
+        sources.forEach(source => {
+          const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === "harvester" && creep.memory.targetId === source.id);
+          if (harvestersForSource.length < 1) {
+            const newName = `harvester_${room}_${Game.time}`;
+            Game.spawns["E53N17_1"].spawnCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE], newName, {
+              memory: {
+                role: "harvester",
+                targetId: source.id as string,
+                room: room,
+                working: false
+              }
+            });
           }
         });
+      } catch (e) {
+        console.log(`Error finding sources for room ${room}: ${e}`);
       }
-    });
+    }
+
+    cpuStat = Game.cpu.getUsed() - cpuStat;
+    console.log(`CPU usage for spawning: ${cpuStat.toFixed(2)}`);
+    // Increment the next ten
+    Memory.collective.time.ten = Game.time + 10;
   }
+
+  if (Game.time >= Memory.collective.time.five) {
+    console.log(`5 tick code`);
+    // Run the 5 tick code
+
+    // Every 5 ticks, run the spawn code
+
+    // Increment the next five
+    Memory.collective.time.five = Game.time + 5;
+  }
+  // Run the 1 tick code
+
+  // Structures
+  runLinks();
+  runTowers();
+
+  // Creeps
   creepHandler.run();
+
+  purgeMemory();
+
   // Log CPU and Memory usage
   console.log(`CPU: ${Game.cpu.getUsed().toFixed(2)}/20`);
 });

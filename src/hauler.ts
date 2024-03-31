@@ -83,27 +83,21 @@ const hauler = {
     if (tower && creep.transfer(tower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
       creep.moveTo(tower, { visualizePathStyle: { stroke: '#0af' } });
     } else {
-      // Then container
-      const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: (structure) => {
-          return (structure.structureType === STRUCTURE_CONTAINER)
-            && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-        }
-      }) as StructureContainer
-      if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(container, { visualizePathStyle: { stroke: '#0af' } });
+      // Storage first, then container
+      const storage = creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (structure) => { return (structure.structureType === STRUCTURE_STORAGE) && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0; } }) as StructureStorage;
+      if (storage && creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(storage, { visualizePathStyle: { stroke: '#0af' } });
       } else {
-        // Storage last
-        const target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+
+        // Then container
+        const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: (structure) => {
-            return (structure.structureType === STRUCTURE_STORAGE)
+            return (structure.structureType === STRUCTURE_CONTAINER)
               && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
           }
-        }) as StructureStorage;
-        if (target) {
-          if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(target, { visualizePathStyle: { stroke: '#0af' } });
-          }
+        }) as StructureContainer
+        if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(container, { visualizePathStyle: { stroke: '#0af' } });
         }
       }
     }

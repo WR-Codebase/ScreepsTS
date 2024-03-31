@@ -15,7 +15,7 @@ const worker = {
   template: {
     pattern: [WORK, CARRY],
     prefix: [],
-    suffix: [MOVE, MOVE]
+    suffix: [MOVE, MOVE, MOVE]
   },
 
   run: function (creep: Creep) {
@@ -42,7 +42,7 @@ const worker = {
     } else if (creep.memory.status === '⚡ Upgrade') {
       jobs.upgrade(creep);
     } else {
-      creep.memory.energyPriority = ['CONTAINER_STORAGE', 'DROPPED_RESOURCE']; //
+      creep.memory.energyPriority = ['CONTAINER_STORAGE', 'DROPPED_RESOURCE', 'LINK']; //
       jobs.collect(creep);
     }
 

@@ -22,12 +22,12 @@ const jobs = {
       }
     },
     nourish: function(creep: Creep) {
-      console.log(`${creep.name} is nourishing ${creep.memory.targetId}`);
+      //console.log(`${creep.name} is nourishing ${creep.memory.targetId}`);
       // If the creep already has a target and that target is not yet full, do not get a new target
 
       // First check if the creep has a target spawn or extension and it still needs energy
       if (creep.memory.targetId) {
-        console.log(`Target still valid, ${creep} is nourishing ${creep.memory.targetId}`);
+        //console.log(`Target still valid, ${creep} is nourishing ${creep.memory.targetId}`);
         const target = Game.getObjectById(creep.memory.targetId) as StructureSpawn | StructureExtension;
         if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
           if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
@@ -63,7 +63,7 @@ const jobs = {
         }
       }
 
-      console.log(`Checking ${creep.name} target: ${creep.memory.targetId}`);
+      //console.log(`Checking ${creep.name} target: ${creep.memory.targetId}`);
       if (creep.memory.targetId) {
         const target = Game.getObjectById(creep.memory.targetId) as AnyOwnedStructure;
         if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
@@ -98,6 +98,7 @@ const jobs = {
       if (targetToRepair) {
         if (creep.repair(targetToRepair) === ERR_NOT_IN_RANGE) {
           creep.moveTo(targetToRepair, { reusePath: 20, visualizePathStyle: { stroke: "#fa0", lineStyle: "dashed" }, ignoreCreeps: false });
+          //creep.travelTo(targetToRepair, { ignoreCreeps: false });
         }
         // If target is full, unset target
         if (targetToRepair.hits === targetToRepair.hitsMax) {
@@ -147,7 +148,6 @@ const jobs = {
           }
         }
       }
-      if (creep.memory.role === 'pillager') console.log(`150: ${creep.name} is collecting from ${target}, memory ID: ${creep.memory.targetId}`);
 
       // Now that we have unset invalid targets, If we don't have a target, get a new one
       if (!creep.memory.targetId) {
@@ -218,8 +218,6 @@ const jobs = {
             break; // Exit loop if a target is found
           }
         }
-        if (creep.memory.role === 'pillager') console.log(`221: ${creep.name} is collecting from ${target}, memory ID: ${creep.memory.targetId}`);
-
       }
 
       if (!target) {
