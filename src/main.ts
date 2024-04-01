@@ -26,6 +26,18 @@ declare global {
   }
 }
 
+function canClaimController(controller : StructureController) {
+  // Check if the controller is unowned
+  if (!controller.owner) {
+    // Check if the controller is reserved by another player
+    if (controller.reservation && controller.reservation.username !== 'WoodenRobot') {
+      return false; // Controller is reserved by someone else
+    }
+    return true; // Controller is unreserved or reserved by you, and can be claimed
+  }
+  return false; // Controller is owned by someone else
+}
+
 /**
  * purgeMemory - removes no-longer-used memory entries
  * @returns {void}
@@ -156,28 +168,94 @@ export const loop = ErrorMapper.wrapLoop(() => {
       creepHandler.spawn(spawnName);
     }
 
-    const roomsAllowedToHarvest = ['E52N17', 'E53N17', 'E53N18'];
+    const roomsAllowedToHarvest = ['E52N17', 'E53N17' , 'E53N18']; //, 'E53N16', 'E54N17'
     for (const room of roomsAllowedToHarvest) {
-      try {
-        console.log(`Checking room ${room}`);
-        let sources = Game.rooms[room].find(FIND_SOURCES);
-        // Ensure one harvester per source
-        sources.forEach(source => {
-          const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === "harvester" && creep.memory.targetId === source.id);
-          if (harvestersForSource.length < 1) {
-            const newName = `harvester_${room}_${Game.time}`;
-            Game.spawns["E53N17_1"].spawnCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE], newName, {
-              memory: {
-                role: "harvester",
-                targetId: source.id as string,
-                room: room,
-                working: false
+      // If the room is under attack, stop all non-combat spawning and generate three large remoteDefender creeps
+      if (Game.rooms[room].find(FIND_HOSTILE_CREEPS).length > 0) {
+        // Spawn one remoteDefender per room
+        const remoteDefenders = _.filter(Game.creeps, (creep) => creep.memory.role === "remoteDefender" && creep.memory.targetRoom === room);
+        // 4 ranged attack, 4 move
+        if (remoteDefenders.length < 3) {
+          const newName = `remoteDefender_${room}_${Game.time}`;
+          Game.spawns["E53N17_1"].spawnCreep([RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE, MOVE, MOVE], newName, {
+            memory: {
+              role: "remoteDefender",
+              targetRoom: room,
+              room: room,
+              working: false
+            }
+          });
+        }
+      } else {
+        try {
+          console.log(`Checking room ${room}`);
+          // If room is not E53N17, also spawn two haulers and a remote defender
+          if (room !== 'E53N17') {
+            // Spawn one remoteDefender per room
+            const remoteDefenders = _.filter(Game.creeps, (creep) => creep.memory.role === "remoteDefender" && creep.memory.targetRoom === room);
+            // 4 ranged attack, 4 move
+            if (remoteDefenders.length < 1) {
+              const newName = `remoteDefender_${room}_${Game.time}`;
+              Game.spawns["E53N17_1"].spawnCreep([RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE, MOVE, MOVE], newName, {
+                memory: {
+                  role: "remoteDefender",
+                  targetRoom: room,
+                  room: room,
+                  working: false
+                }
+              });
+            }
+          }
+
+          // If room is not owned by the colony, spawn a drone for that room
+          if (canClaimController(Game.rooms[room].controller as StructureController)) {
+            const drones = _.filter(Game.creeps, (creep) => creep.memory.role === "drone" && creep.memory.room === room);
+            if (drones.length < 1) {
+              const newName = `drone_${room}_${Game.time}`;
+              Game.spawns["E53N17_1"].spawnCreep([CLAIM, MOVE], newName, {
+                memory: {
+                  role: "drone",
+                  room: room,
+                  working: false
+                }
+              });
+            }
+          } else if (Game.rooms[room].controller?.my) {
+            // If room is owned or reserved by the colony, spawn harvesters and haulers
+            let sources = Game.rooms[room].find(FIND_SOURCES);
+            // Ensure one harvester per source
+            sources.forEach(source => {
+              const harvestersForSource = _.filter(Game.creeps, (creep) => creep.memory.role === "harvester" && creep.memory.targetId === source.id);
+              if (harvestersForSource.length < 1) {
+                const newName = `harvester_${room}_${Game.time}`;
+                Game.spawns["E53N17_1"].spawnCreep([WORK, WORK, WORK, WORK, WORK, CARRY, MOVE], newName, {
+                  memory: {
+                    role: "harvester",
+                    targetId: source.id as string,
+                    room: room,
+                    working: false
+                  }
+                });
+              }
+              if (room !== 'E53N17') {
+                const haulers = _.filter(Game.creeps, (creep) => creep.memory.role === "hauler" && creep.memory.targetId === source.id);
+                if (haulers.length < 2) {
+                  const newName = `hauler_${room}_${Game.time}`;
+                  Game.spawns["E53N17_1"].spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], newName, {
+                    memory: {
+                      role: "hauler",
+                      targetId: source.id as string,
+                      room: room,
+                      working: false
+                    }
+                  });
+                }
               }
             });
           }
-        });
-      } catch (e) {
-        console.log(`Error finding sources for room ${room}: ${e}`);
+        } catch (e) {
+          console.log(`Error finding sources for room ${room}: ${e}`);
+        }
       }
     }
 

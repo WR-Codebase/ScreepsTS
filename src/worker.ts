@@ -15,7 +15,7 @@ const worker = {
   template: {
     pattern: [WORK, CARRY],
     prefix: [],
-    suffix: [MOVE, MOVE, MOVE]
+    suffix: [MOVE, MOVE, MOVE, MOVE]
   },
 
   run: function (creep: Creep) {

@@ -1,4 +1,9 @@
+declare global {
+  interface CreepMemory {
+    targetRoom?: string;
+  }
 
+}
 const remoteDefender = {
   template: {
     pattern: [MOVE,RANGED_ATTACK],
@@ -10,8 +15,8 @@ const remoteDefender = {
   run: function (creep: Creep) {
     //console.log(`Running remoteDefender ${creep.name}`);
     // Target room to defend
-    creep.memory.targetRoom = 'E52N17';
-    const targetRoom = creep.memory.targetRoom;
+    //creep.memory.targetRoom = 'E52N17';
+    const targetRoom = creep.memory.targetRoom as string;
 
     // If not in the target room, move to it
     if (creep.room.name !== targetRoom) {

@@ -1,7 +1,7 @@
 const minim = {
   template: {
     pattern: [],
-    prefix: [CARRY, CARRY, CARRY],
+    prefix: [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
     suffix: [MOVE]
   },
   run: function (creep: Creep) {

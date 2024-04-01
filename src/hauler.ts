@@ -41,32 +41,29 @@ const hauler = {
   },
 
   collectEnergy: function (creep: Creep) {
-    const source = Game.getObjectById(creep.memory.targetId as string) as Source;
-    if (!source) {
-      //console.log(`Source not found for ID: ${creep.memory.targetId}`);
-      // Handle reassignment or error
-      return;
-    }
-
-    // New logic to check for and collect dropped energy within 3 tiles of the creep's position
-    const nearbyDroppedEnergy = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1, {
-      filter: (r) => r.resourceType === RESOURCE_ENERGY
-    }) || [];
-
-    if (nearbyDroppedEnergy.length > 0) {
-      if (creep.pickup(nearbyDroppedEnergy[0]) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(nearbyDroppedEnergy[0], { visualizePathStyle: { stroke: '#0af' } });
-      }
+    if (creep.room.name !== creep.memory.room) {
+      creep.moveTo(new RoomPosition(25, 25, creep.memory.room), { visualizePathStyle: { stroke: '#f0f', lineStyle: 'dashed' } });
     } else {
+      const source = Game.getObjectById(creep.memory.targetId as string) as Source;
+      if (!source) {
+        //console.log(`Source not found for ID: ${creep.memory.targetId}`);
+        // Handle reassignment or error
+        return;
+      }
 
-      // Find closest dropped energy near the assigned source
-      const droppedEnergy = source.pos.findInRange(FIND_DROPPED_RESOURCES, 3, {
+      // New logic to check for and collect dropped energy within 3 tiles of the creep's position
+      const nearbyDroppedEnergy = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 6, {
         filter: (r) => r.resourceType === RESOURCE_ENERGY
-      });
+      }) || [];
 
-      if (droppedEnergy.length > 0) {
-        if (creep.pickup(droppedEnergy[0]) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(droppedEnergy[0], { visualizePathStyle: { stroke: '#0af' } });
+      if (nearbyDroppedEnergy.length > 0) {
+        if (creep.pickup(nearbyDroppedEnergy[0]) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(nearbyDroppedEnergy[0], { visualizePathStyle: { stroke: '#0af' } });
+        }
+      } else {
+        // if distance from source is > 3 move toward source
+        if (creep.pos.getRangeTo(source) > 3) {
+          creep.moveTo(source, { visualizePathStyle: { stroke: '#0af' } });
         }
       }
     }

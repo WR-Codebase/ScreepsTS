@@ -37,12 +37,12 @@ const creepHandler = {
   spawn: function(spawnName: string, roleName: string) {
     // Minimums
     const minimums = {
-      nurse: 3,
-      worker: 2,
-      courier: 1,
+      nurse: 2,
+      worker: 3,
+      courier: 2,
       repairer: 2,
       pillager: 4,
-      remoteDefender: 1,
+      remoteDefender: 0,
       scout:0,
       minim: 1
     }

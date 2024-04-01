@@ -223,6 +223,7 @@ const jobs = {
       if (!target) {
         target = Game.getObjectById(creep.memory.targetId as string);
       }
+      console.log(`${creep.name} is collecting from ${target}`);
       // Attempt to interact with the target based on its type
       if (target instanceof Resource && creep.pickup(target) === ERR_NOT_IN_RANGE) {
         creep.moveTo(target, { visualizePathStyle: { stroke: "#0f0", lineStyle: "dotted" }, ignoreCreeps: false });
