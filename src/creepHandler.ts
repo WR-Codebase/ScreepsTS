@@ -38,7 +38,7 @@ const creepHandler = {
     // Minimums
     const minimums = {
       nurse: 2,
-      worker: 3,
+      worker: 2,
       courier: 2,
       repairer: 2,
       pillager: 4,

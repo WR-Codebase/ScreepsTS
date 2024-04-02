@@ -13,7 +13,7 @@ const jobs = {
         if (creep.store[RESOURCE_ENERGY] >= 50) {
           const target = creep.pos.findClosestByPath(towers) as AnyOwnedStructure;
           if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(target, { reusePath: 20, visualizePathStyle: { stroke: "#0af" }, ignoreCreeps: false });
+            creep.pathTo(target.pos, { reusePath: 20, visualizePathStyle: { stroke: "#0af" }, ignoreCreeps: false });
           }
         } else {
           // If the creep has less than 50 energy, collect more
@@ -31,7 +31,7 @@ const jobs = {
         const target = Game.getObjectById(creep.memory.targetId) as StructureSpawn | StructureExtension;
         if (target && target.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
           if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(target, { visualizePathStyle: { stroke: "#f77", lineStyle: "solid" }, ignoreCreeps: false });
+            creep.pathTo(target.pos, { visualizePathStyle: { stroke: "#f77", lineStyle: "solid" }, ignoreCreeps: false });
           }
           return;
         }
@@ -67,7 +67,7 @@ const jobs = {
       if (creep.memory.targetId) {
         const target = Game.getObjectById(creep.memory.targetId) as AnyOwnedStructure;
         if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { visualizePathStyle: { stroke: "#f77", lineStyle: "solid" }, ignoreCreeps: false });
+          creep.pathTo(target.pos, { visualizePathStyle: { stroke: "#f77", lineStyle: "solid" }, ignoreCreeps: false });
         }
       }
     },

@@ -1,12 +1,24 @@
 import { ErrorMapper } from "utils/ErrorMapper";
 import creepHandler from "creepHandler";
-import { Traveler } from "Traveler";
+import "pathTo";
 
 // Global memory interfaces
 declare global {
   interface Memory {
     uuid: number;
     log: any;
+  }
+
+  // Define the interface for a Task
+  interface Task {
+    id: string; // Unique identifier for the task
+    type: string; // Type of the task (e.g., 'harvest', 'build', 'repair')
+    priority: number; // Priority of the task (lower number = higher priority)
+    assignedTo: string[]; // Array of creep names assigned to this task
+    status: 'pending' | 'inProgress' | 'completed'; // Status of the task
+    roomName: string; // The name of the room where the task is to be executed
+    targetId: string; // The ID of the target object for the task (e.g., source, construction site)
+    // Additional task-specific parameters can be added here
   }
 
   interface CreepMemory {
@@ -17,6 +29,11 @@ declare global {
     energyPriority?: string[];
     targetId?: string;
     targetRoom?: string;
+    _move?: {
+      dest: RoomPosition;
+      path: RoomPosition[];
+    }
+    _shoveTarget?: RoomPosition;
   }
 
   namespace NodeJS {
@@ -25,6 +42,11 @@ declare global {
     }
   }
 }
+
+// Global constants for use with memory segments, ROOMS = 0, PATHS = 1, TASKS = 2
+const ROOMS = 0;
+const PATHS = 1;
+const TASKS = 2;
 
 function canClaimController(controller : StructureController) {
   // Check if the controller is unowned
@@ -168,10 +190,12 @@ export const loop = ErrorMapper.wrapLoop(() => {
       creepHandler.spawn(spawnName);
     }
 
-    const roomsAllowedToHarvest = ['E52N17', 'E53N17' , 'E53N18']; //, 'E53N16', 'E54N17'
+    const roomsAllowedToHarvest = ['E52N17', 'E53N17' , 'E53N18', 'E53N16', 'E54N17'];
     for (const room of roomsAllowedToHarvest) {
+
       // If the room is under attack, stop all non-combat spawning and generate three large remoteDefender creeps
-      if (Game.rooms[room].find(FIND_HOSTILE_CREEPS).length > 0) {
+      if (false) {/*
+        Game.rooms[room].find(FIND_HOSTILE_CREEPS).length > 0
         // Spawn one remoteDefender per room
         const remoteDefenders = _.filter(Game.creeps, (creep) => creep.memory.role === "remoteDefender" && creep.memory.targetRoom === room);
         // 4 ranged attack, 4 move
@@ -185,7 +209,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
               working: false
             }
           });
-        }
+        }*/
       } else {
         try {
           console.log(`Checking room ${room}`);
@@ -269,7 +293,9 @@ export const loop = ErrorMapper.wrapLoop(() => {
     console.log(`5 tick code`);
     // Run the 5 tick code
 
-    // Every 5 ticks, run the spawn code
+    // Task Queue
+    // The task queue will live in RawMemory and will be an array of objects
+
 
     // Increment the next five
     Memory.collective.time.five = Game.time + 5;

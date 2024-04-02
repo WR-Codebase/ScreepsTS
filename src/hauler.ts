@@ -58,12 +58,12 @@ const hauler = {
 
       if (nearbyDroppedEnergy.length > 0) {
         if (creep.pickup(nearbyDroppedEnergy[0]) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(nearbyDroppedEnergy[0], { visualizePathStyle: { stroke: '#0af' } });
+          creep.moveTo(nearbyDroppedEnergy[0].pos, { visualizePathStyle: { stroke: '#0af' } });
         }
       } else {
         // if distance from source is > 3 move toward source
         if (creep.pos.getRangeTo(source) > 3) {
-          creep.moveTo(source, { visualizePathStyle: { stroke: '#0af' } });
+          creep.moveTo(source.pos, { visualizePathStyle: { stroke: '#0af' } });
         }
       }
     }
